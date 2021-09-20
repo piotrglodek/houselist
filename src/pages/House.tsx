@@ -2,7 +2,16 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-interface Props {}
+interface IData {
+  _id: string;
+  address: string;
+  floorsNumber: number;
+  description: string;
+  label: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 interface RouteParams {
   id: string;
@@ -15,11 +24,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-export const House = (props: Props) => {
+export const House = () => {
   let { id } = useParams<RouteParams>();
   let history = useHistory();
 
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState<IData>({} as IData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
@@ -71,22 +80,26 @@ export const House = (props: Props) => {
           <table>
             <thead>
               <tr>
+                <th>_id</th>
                 <th>address</th>
                 <th>floorsNumber</th>
                 <th>description</th>
                 <th>label</th>
                 <th>created At</th>
                 <th>updated At</th>
+                <th>__v</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td>{data._id}</td>
                 <td>{data.address}</td>
                 <td>{data.floorsNumber}</td>
                 <td>{data.description}</td>
                 <td>{data.label}</td>
                 <td>{new Date(data.createdAt).toUTCString()}</td>
                 <td>{new Date(data.updatedAt).toUTCString()}</td>
+                <td>{data.__v}</td>
               </tr>
             </tbody>
           </table>
